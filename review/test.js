@@ -102,7 +102,7 @@ describe('auto', async function() {
                 expect(error).to.not.exist
             })
 
-            it.only('should throw an error when the pr state is not valid', async function() {
+            it('should throw an error when the pr state is not valid', async function() {
 
                 const request = {
                     state: 'invalid'
@@ -114,8 +114,6 @@ describe('auto', async function() {
                 } catch (err) {
                     error = err   
                 }
-
-                console.log(error)
 
                 expect(error).to.exist
             })
