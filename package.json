@@ -13,6 +13,6 @@
     "mocha": "^7.2.0"
   },
   "scripts": {
-    "test": "mocha -r esm --timeout 20000 ./*/test.js"
+    "test": "mocha --timeout 20000 ./*/test.js --require esm"
   }
 }
