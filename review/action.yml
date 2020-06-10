@@ -1,6 +1,9 @@
 name: 'Review'
 description: 'Create and delete apps on a heroku pipeline'
 inputs:
+  base:
+    description: 'The base name of the app'
+    required: true
   pipeline: 
     description: 'A heroku pipline id to add the new app to'
     required: true
@@ -8,20 +11,14 @@ inputs:
     description: 'A stage to add the app to'
     required: false
     default: 'development'
-  HEROKU_TOKEN:
+  token:
     description: 'API token of the heroku account'
     required: true
 outputs:
   app_name: 
     description: 'The name of the app that is created'
-  DATABASE_URL:
+  database_url:
     description: 'The postgresql url of the provisioned db'
 runs:
   using: 'node12'
-  main: 'main.js'
-
-
-
-  # on:
-  # pull_request:
-  #   types: [ opened, closed ]
+  main: 'handler.js'
