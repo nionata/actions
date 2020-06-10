@@ -10,3 +10,6 @@ jobs:
         uses: actions/checkout@v2
       - name: run tests
         run: yarn test
+        env:
+          HEROKU_TOKEN: ${{ secrets.HEROKU_TOKEN }}
+          PIPELINE_ID: ${{ secrets.PIPELINE_ID }}
