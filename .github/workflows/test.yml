@@ -1,4 +1,4 @@
-name: test
+name: Run tests
 on:
   pull_request:
     branches: [ 'develop', 'master' ]
@@ -8,6 +8,8 @@ jobs:
     steps:
       - name: checkout repo
         uses: actions/checkout@v2
+      - name: install dependencies
+        run: yarn
       - name: run tests
         run: yarn test
         env:
