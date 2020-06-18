@@ -21,4 +21,4 @@ outputs:
     description: 'The postgresql url of the provisioned db'
 runs:
   using: 'node12'
-  main: '-r esm handler.js'
+  main: 'handler.js'
