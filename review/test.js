@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import { createAxiosInstance, getAppName } from './util'
 import { createApp, deleteApp } from './dataaccess'
 import { run } from './controller'
@@ -8,10 +7,10 @@ dotenv.config()
 
 let instance
 
-describe('auto', async function() {
-    describe('review', async function() {        
-        describe('util', async function() {
-            it('should create an axios instance', async function() {
+test('auto', async () => {
+    test('review', async () => {        
+        test('util', async () => {
+            test('should create an axios instance', async () => {
 
                 const host = 'https://api.heroku.com'
                 const token = process.env.HEROKU_TOKEN
@@ -22,8 +21,8 @@ describe('auto', async function() {
             })
         })
         
-        describe('dataaccess', async function() {
-            it('should create an app', async function() {
+        test('dataaccess', async () => {
+            test('should create an app', async () => {
 
                 const pipeline = process.env.PIPELINE_ID
                 const stage = 'development'
@@ -42,7 +41,7 @@ describe('auto', async function() {
                 expect(response).to.haveOwnProperty('DATABASE_URL')
             })
 
-            it('should delete an app', async function() {
+            test('should delete an app', async () => {
 
                 const name = getAppName('stem-c', 1)
 
@@ -57,8 +56,8 @@ describe('auto', async function() {
             })
         })
         
-        describe('controller', async function() {
-            it('should create an app when the pr state is open', async function() {
+        test('controller', async () => {
+            test('should create an app when the pr state is open', async () => {
 
                 const request = {
                     base: 'stem-c',
@@ -83,7 +82,7 @@ describe('auto', async function() {
                 expect(response).to.haveOwnProperty('DATABASE_URL')
             })
 
-            it('should delete an app when the pr state is closed', async function() {
+            test('should delete an app when the pr state is closed', async () => {
 
                 const request = {
                     base: 'stem-c',
@@ -102,7 +101,7 @@ describe('auto', async function() {
                 expect(error).to.not.exist
             })
 
-            it('should throw an error when the pr state is not valid', async function() {
+            test('should throw an error when the pr state is not valid', async () => {
 
                 const request = {
                     state: 'invalid'
