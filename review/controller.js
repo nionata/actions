@@ -1,5 +1,5 @@
-import { createAxiosInstance, getAppName } from './util'
-import { createApp, deleteApp } from './dataaccess'
+import { createAxiosInstance, getAppName } from './util.js'
+import { createApp, deleteApp } from './dataaccess.js'
 
 export const run = async ({ base, pipeline, stage, token, state, pr }) => {
 

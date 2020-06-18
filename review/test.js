@@ -1,122 +1,120 @@
-import { expect } from 'chai'
-import { createAxiosInstance, getAppName } from './util'
-import { createApp, deleteApp } from './dataaccess'
-import { run } from './controller'
+import { createAxiosInstance, getAppName } from './util.js'
+import { createApp, deleteApp } from './dataaccess.js'
+import { run } from './controller.js'
 
 import * as dotenv from 'dotenv'
 dotenv.config()
 
 let instance
 
-describe('auto', async function() {
-    describe('review', async function() {        
-        describe('util', async function() {
-            it('should create an axios instance', async function() {
+//
+// util
+//
+test('util should create an axios instance', async () => {
 
-                const host = 'https://api.heroku.com'
-                const token = process.env.HEROKU_TOKEN
+    const host = 'https://api.heroku.com'
+    const token = process.env.HEROKU_TOKEN
 
-                instance = createAxiosInstance(host, token)
+    instance = createAxiosInstance(host, token)
 
-                expect(instance.defaults.baseURL).to.equal(`${host}/`)
-            })
-        })
-        
-        describe('dataaccess', async function() {
-            it('should create an app', async function() {
+    expect(instance.defaults.baseURL).toBe(`${host}/`)
+})
 
-                const pipeline = process.env.PIPELINE_ID
-                const stage = 'development'
-                const name = getAppName('stem-c', 1)
+//
+// dataaccess
+//
+test('dataaccess should create an app', async () => {
 
-                let response, error
-                try {
-                    response = await createApp(instance, pipeline, stage, name)
-                } catch (err) {
-                    error = err   
-                }
+    const pipeline = process.env.PIPELINE_ID
+    const stage = 'development'
+    const name = getAppName('stem-c', 1)
 
-                expect(error).to.not.exist
-                expect(response).to.exist
-                expect(response).to.haveOwnProperty('app_name').equals(name)
-                expect(response).to.haveOwnProperty('DATABASE_URL')
-            })
+    let response, error
+    try {
+        response = await createApp(instance, pipeline, stage, name)
+    } catch (err) {
+        error = err   
+    }
 
-            it('should delete an app', async function() {
+    expect(error).toBeUndefined()
+    expect(response).not.toBeUndefined()
+    expect(response).toHaveProperty('app_name', name)
+    expect(response).toHaveProperty('DATABASE_URL')
+})
 
-                const name = getAppName('stem-c', 1)
+test('dataaccess should delete an app', async () => {
 
-                let error
-                try {
-                    await deleteApp(instance, name)
-                } catch (err) {
-                    error = err   
-                }
+    const name = getAppName('stem-c', 1)
 
-                expect(error).to.not.exist
-            })
-        })
-        
-        describe('controller', async function() {
-            it('should create an app when the pr state is open', async function() {
+    let error
+    try {
+        await deleteApp(instance, name)
+    } catch (err) {
+        error = err   
+    }
 
-                const request = {
-                    base: 'stem-c',
-                    pipeline: process.env.PIPELINE_ID,
-                    stage: 'development',
-                    token: process.env.HEROKU_TOKEN,
-                    state: 'open',
-                    pr: '1'
-                }
-                const name = getAppName(request.base, request.pr)
+    expect(error).toBeUndefined()
+})
 
-                let response, error
-                try {
-                    response = await run(request)
-                } catch (err) {
-                    error = err   
-                }
+//
+// controller
+//
+test('controller should create an app when the pr state is open', async () => {
 
-                expect(error).to.not.exist
-                expect(response).to.exist
-                expect(response).to.haveOwnProperty('app_name').equals(name)
-                expect(response).to.haveOwnProperty('DATABASE_URL')
-            })
+    const request = {
+        base: 'stem-c',
+        pipeline: process.env.PIPELINE_ID,
+        stage: 'development',
+        token: process.env.HEROKU_TOKEN,
+        state: 'open',
+        pr: '1'
+    }
+    const name = getAppName(request.base, request.pr)
 
-            it('should delete an app when the pr state is closed', async function() {
+    let response, error
+    try {
+        response = await run(request)
+    } catch (err) {
+        error = err   
+    }
 
-                const request = {
-                    base: 'stem-c',
-                    token: process.env.HEROKU_TOKEN,
-                    state: 'closed',
-                    pr: '1'
-                }
+    expect(error).toBeUndefined()
+    expect(response).not.toBeUndefined()
+    expect(response).toHaveProperty('app_name', name)
+    expect(response).toHaveProperty('DATABASE_URL')
+})
 
-                let error
-                try {
-                    await run(request)
-                } catch (err) {
-                    error = err   
-                }
+test('controller should delete an app when the pr state is closed', async () => {
 
-                expect(error).to.not.exist
-            })
+    const request = {
+        base: 'stem-c',
+        token: process.env.HEROKU_TOKEN,
+        state: 'closed',
+        pr: '1'
+    }
 
-            it('should throw an error when the pr state is not valid', async function() {
+    let error
+    try {
+        await run(request)
+    } catch (err) {
+        error = err   
+    }
 
-                const request = {
-                    state: 'invalid'
-                }
+    expect(error).toBeUndefined()
+})
 
-                let error
-                try {
-                    await run(request)
-                } catch (err) {
-                    error = err   
-                }
+test('controller should throw an error when the pr state is not valid', async () => {
 
-                expect(error).to.exist
-            })
-        })
-    })
+    const request = {
+        state: 'invalid'
+    }
+
+    let error
+    try {
+        await run(request)
+    } catch (err) {
+        error = err   
+    }
+
+    expect(error).not.toBeUndefined()
 })
