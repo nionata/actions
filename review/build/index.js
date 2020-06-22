@@ -10096,24 +10096,19 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ../node_modules/@actions/core/lib/core.js
 var core = __webpack_require__(873);
-var core_default = /*#__PURE__*/__webpack_require__.n(core);
 
 // EXTERNAL MODULE: ../node_modules/@actions/github/lib/github.js
 var github = __webpack_require__(176);
-var github_default = /*#__PURE__*/__webpack_require__.n(github);
 
 // EXTERNAL MODULE: ../node_modules/axios/index.js
 var node_modules_axios = __webpack_require__(54);
-var axios_default = /*#__PURE__*/__webpack_require__.n(node_modules_axios);
 
 // CONCATENATED MODULE: ./util.js
 
 
-const { create } = axios_default.a
-
 const getAppName = (base, pr) => `${base}-pr-${pr}`
 
-const createAxiosInstance = (host, token) => create({
+const createAxiosInstance = (host, token) => Object(node_modules_axios.create)({
     baseURL: `${host}/`,
     headers: {
         'Authorization': `Bearer ${token}`,
@@ -10190,24 +10185,21 @@ const run = async ({ base, pipeline, stage, token, state, pr }) => {
 
 
 
-const { getInput, setOutput, setFailed } = core_default.a
-const { context } = github_default.a
-
-const getInputs = (inputs) => inputs.map(input => getInput(input))
+const getInputs = (inputs) => inputs.map(input => Object(core.getInput)(input))
 const handler = async () => {
 
 	try {
 		const inputs = getInputs(['base', 'pipeline', 'stage', 'token'])
-		const { state, number: pr } = context.payload.pull_request
+		const { state, number: pr } = github.context.payload.pull_request
 		console.log(`[PR] ${pr} ${state}`)
 
 		const { app_name, DATABASE_URL } = await run({ ...inputs, state, pr })
-		setOutput('app_name', app_name)
-		setOutput('DATABASE_URL', DATABASE_URL)
+		Object(core.setOutput)('app_name', app_name)
+		Object(core.setOutput)('DATABASE_URL', DATABASE_URL)
 	} catch (err) {
 
 		console.log('Action failed.', err)
-		setFailed(err.message)
+		Object(core.setFailed)(err.message)
 	}
 }
 
