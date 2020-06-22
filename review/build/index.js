@@ -10164,7 +10164,7 @@ const deleteApp = async (axios, name) => {
 
 
 
-const run = async ({ base, pipeline, stage, token, state, pr }) => {
+const run = async ( base, pipeline, stage, token, state, pr ) => {
 
 	const axios = createAxiosInstance('https://api.heroku.com', token)
     const name = getAppName(base, pr)
@@ -10193,7 +10193,7 @@ const handler = async () => {
 		const { state, number: pr } = github.context.payload.pull_request
 		console.log(`[PR] ${pr} ${state}`)
 
-		const { app_name, DATABASE_URL } = await run({ ...inputs, state, pr })
+		const { app_name, DATABASE_URL } = await run(...inputs, state, pr)
 		Object(core.setOutput)('app_name', app_name)
 		Object(core.setOutput)('DATABASE_URL', DATABASE_URL)
 	} catch (err) {
