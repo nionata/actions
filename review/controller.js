@@ -11,7 +11,7 @@ export const run = async ( base, pipeline, stage, token, state, pr ) => {
         return await createApp(axios, pipeline, stage, name)
     } else if (state == 'closed') {
 
-        await deleteApp(axios, name)
+        return await deleteApp(axios, name)
     } else {
         
         throw Error(`Invalid pr state ${state}`)

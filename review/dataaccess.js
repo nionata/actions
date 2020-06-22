@@ -41,4 +41,6 @@ export const deleteApp = async (axios, name) => {
 	// delete the app
 	console.log(`deleting ${name}`)
 	await axios.delete(`/apps/${name}`)
+
+	return { app_name: name }
 }
