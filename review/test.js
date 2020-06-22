@@ -94,15 +94,19 @@ test('controller should delete an app when the pr state is closed', async () => 
         state: 'closed',
         pr: '1'
     }
+    const name = getAppName(request.base, request.pr)
 
-    let error
+    let response, error
     try {
-        await run(...Object.values(request))
+        response = await run(...Object.values(request))
     } catch (err) {
         error = err   
     }
 
     expect(error).toBeUndefined()
+    expect(response).not.toBeUndefined()
+    expect(response).toHaveProperty('app_name', name)
+    expect(response).not.toHaveProperty('DATABASE_URL')
 })
 
 test('controller should throw an error when the pr state is not valid', async () => {
