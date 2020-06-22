@@ -3,7 +3,7 @@ on:
   pull_request:
     branches: [ 'develop', 'master' ]
 jobs:
-  install-and-run-test-suites:
+  run-test-suites:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
