@@ -1,10 +1,9 @@
 name: Build all actions
 on:
-  release:
-    types: [ published ]
+  push:
     branches: [ master ]
 jobs:
-  build-actions:
+  build-all-actions:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
@@ -18,7 +17,7 @@ jobs:
         with:
           author_name: nionata
           author_email: nionata@ufl.edu
-          message: Build actions for ${{ env.GITHUB_REF }}
+          message: Built latest actions 
           add: "*"
           ref: master
         env:

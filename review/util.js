@@ -1,6 +1,4 @@
-import axios from 'axios'
-
-const { create } = axios
+import { create } from 'axios'
 
 export const getAppName = (base, pr) => `${base}-pr-${pr}`
 

@@ -1,9 +1,6 @@
-import core from '@actions/core'
-import github from '@actions/github'
+import { getInput, setOutput, setFailed } from '@actions/core'
+import { context } from '@actions/github'
 import { run } from './controller.js'
-
-const { getInput, setOutput, setFailed } = core
-const { context } = github
 
 const getInputs = (inputs) => inputs.map(input => getInput(input))
 const handler = async () => {
