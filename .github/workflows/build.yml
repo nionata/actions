@@ -18,7 +18,8 @@ jobs:
         with:
           author_name: nionata
           author_email: nionata@ufl.edu
-          message: Build actions for $GITHUB_REF
+          message: Build actions for ${{ env.GITHUB_REF }}
           add: "*"
+          ref: master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
