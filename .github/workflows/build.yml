@@ -1,0 +1,15 @@
+name: Build all actions
+on:
+  release:
+    types: [ published ]
+    branches: [ master ]
+jobs:
+  build-all-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v2
+      - name: install dependencies
+        run: yarn
+      - name: build actions
+        run: yarn build

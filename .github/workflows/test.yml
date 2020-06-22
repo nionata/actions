@@ -1,9 +1,9 @@
-name: Run tests
+name: Test all actions
 on:
   pull_request:
     branches: [ 'develop', 'master' ]
 jobs:
-  test:
+  install-and-run-test-suites:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
