@@ -10,7 +10,7 @@ const handler = async () => {
 		const { state, number: pr } = context.payload.pull_request
 		console.log(`[PR] ${pr} ${state}`)
 
-		const { app_name, DATABASE_URL } = await run({ ...inputs, state, pr })
+		const { app_name, DATABASE_URL } = await run(...inputs, state, pr)
 		setOutput('app_name', app_name)
 		setOutput('DATABASE_URL', DATABASE_URL)
 	} catch (err) {

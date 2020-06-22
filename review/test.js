@@ -73,7 +73,7 @@ test('controller should create an app when the pr state is open', async () => {
 
     let response, error
     try {
-        response = await run(request)
+        response = await run(...Object.values(request))
     } catch (err) {
         error = err   
     }
@@ -88,6 +88,8 @@ test('controller should delete an app when the pr state is closed', async () => 
 
     const request = {
         base: 'stem-c',
+        pipeline: process.env.PIPELINE_ID,
+        stage: 'development',
         token: process.env.HEROKU_TOKEN,
         state: 'closed',
         pr: '1'
@@ -95,7 +97,7 @@ test('controller should delete an app when the pr state is closed', async () => 
 
     let error
     try {
-        await run(request)
+        await run(...Object.values(request))
     } catch (err) {
         error = err   
     }
@@ -111,7 +113,7 @@ test('controller should throw an error when the pr state is not valid', async ()
 
     let error
     try {
-        await run(request)
+        await run(...Object.keys(request))
     } catch (err) {
         error = err   
     }
