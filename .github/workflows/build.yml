@@ -4,7 +4,7 @@ on:
     types: [ published ]
     branches: [ master ]
 jobs:
-  build-and-commit-all-actions:
+  build-actions:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
