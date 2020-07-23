@@ -28,3 +28,5 @@ outputs:
     description: 'The postgresql url of the provisioned db'
 ```
 
+## Tag
+Automatically tags on pull requests into master
