@@ -9,4 +9,4 @@ inputs:
     #description: 'The api token for slack REST calls'
 runs:
   using: 'node12'
-  main: 'index.js'
+  main: 'build/index.js'
