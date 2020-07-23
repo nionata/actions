@@ -27,7 +27,7 @@ test('dataaccess should create an app', async () => {
 
     const pipeline = process.env.PIPELINE_ID
     const stage = 'development'
-    const name = getAppName('stem-c', 1)
+    const name = getAppName('review', 1)
 
     let response, error
     try {
@@ -44,7 +44,7 @@ test('dataaccess should create an app', async () => {
 
 test('dataaccess should delete an app', async () => {
 
-    const name = getAppName('stem-c', 1)
+    const name = getAppName('review', 1)
 
     let error
     try {
@@ -62,7 +62,7 @@ test('dataaccess should delete an app', async () => {
 test('controller should create an app when the pr state is open', async () => {
 
     const request = {
-        base: 'stem-c',
+        base: 'review',
         pipeline: process.env.PIPELINE_ID,
         stage: 'development',
         token: process.env.HEROKU_TOKEN,
@@ -87,7 +87,7 @@ test('controller should create an app when the pr state is open', async () => {
 test('controller should delete an app when the pr state is closed', async () => {
 
     const request = {
-        base: 'stem-c',
+        base: 'review',
         pipeline: process.env.PIPELINE_ID,
         stage: 'development',
         token: process.env.HEROKU_TOKEN,
