@@ -89,8 +89,8 @@ runs:
 ```
 
 4. Create functionality in `handler.js` and write some tests in `test.js`
-5. Merge your branch onto `master`
-6. Create a new release with an incremental minor version
+5. Merge your branch into `master`
+6. Create a new release with an [incremental minor version](https://semver.org/)
 7. Use your action in a [workflow](https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow)
 
 ``` yaml
