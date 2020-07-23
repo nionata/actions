@@ -1,10 +1,10 @@
-const core = require("@actions/core");
-const { exec } = require("@actions/exec");
-const { context, GitHub } = require("@actions/github");
-const { request } = require("@octokit/request");
+import { getInput } from '@actions/core'
+import { exec } from '@actions/exec'
+import { context, getOctokit } from '@actions/github'
+import { request } from '@octokit/request'
 
 const pr = context.payload.pull_request;
-const client = new GitHub(core.getInput("repo_token"));
+const client = getOctokit(getInput("repo_token"));
 //const slackToken = core.getInput("slack_token");
 
 run();
@@ -43,7 +43,7 @@ async function run() {
             await postTag(newVersion);
         }
     } catch (error) {
-        core.warning(error.message);
+        console.log(error.message);
     }
 }
 

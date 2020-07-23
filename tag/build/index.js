@@ -42,6 +42,8 @@ module.exports =
 /******/ 		// Load entry module and return exports
 /******/ 		return __webpack_require__(454);
 /******/ 	};
+/******/ 	// initialize runtime
+/******/ 	runtime(__webpack_require__);
 /******/
 /******/ 	// run startup
 /******/ 	return startup();
@@ -6559,15 +6561,25 @@ exports.getApiBaseUrl = getApiBaseUrl;
 /***/ }),
 
 /***/ 454:
-/***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
+/***/ (function(__unusedmodule, __webpack_exports__, __webpack_require__) {
 
-const core = __webpack_require__(873);
-const { exec } = __webpack_require__(535);
-const { context, GitHub } = __webpack_require__(176);
-const { request } = __webpack_require__(956);
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(873);
+/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _actions_exec__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(535);
+/* harmony import */ var _actions_exec__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_actions_exec__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _actions_github__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(176);
+/* harmony import */ var _actions_github__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_actions_github__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _octokit_request__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(956);
+/* harmony import */ var _octokit_request__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_octokit_request__WEBPACK_IMPORTED_MODULE_3__);
 
-const pr = context.payload.pull_request;
-const client = new GitHub(core.getInput("repo_token"));
+
+
+
+
+const pr = _actions_github__WEBPACK_IMPORTED_MODULE_2__.context.payload.pull_request;
+const client = Object(_actions_github__WEBPACK_IMPORTED_MODULE_2__.getOctokit)(Object(_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("repo_token"));
 //const slackToken = core.getInput("slack_token");
 
 run();
@@ -6606,7 +6618,7 @@ async function run() {
             await postTag(newVersion);
         }
     } catch (error) {
-        core.warning(error.message);
+        console.log(error.message);
     }
 }
 
@@ -6614,17 +6626,17 @@ async function postTag(ver) {
     console.log(`Creating annotated tag`);
 
     const tagCreateResponse = await client.git.createTag({
-        ...context.repo,
+        ..._actions_github__WEBPACK_IMPORTED_MODULE_2__.context.repo,
         tag: ver,
         message: pr.body,
-        object: context.sha,
+        object: _actions_github__WEBPACK_IMPORTED_MODULE_2__.context.sha,
         type: "commit",
     });
 
     console.log(`Pushing annotated tag to the repo`);
 
     let response = await client.git.createRef({
-        ...context.repo,
+        ..._actions_github__WEBPACK_IMPORTED_MODULE_2__.context.repo,
         ref: `refs/tags/${ver}`,
         sha: tagCreateResponse.data.sha,
     });
@@ -6648,7 +6660,7 @@ async function _exec(command) {
             },
         };
 
-        const code = await exec(command, undefined, options);
+        const code = await Object(_actions_exec__WEBPACK_IMPORTED_MODULE_1__.exec)(command, undefined, options);
 
         return {
             code,
@@ -11306,4 +11318,43 @@ module.exports = function (str) {
 
 /***/ })
 
-/******/ });
+/******/ },
+/******/ function(__webpack_require__) { // webpackRuntimeModules
+/******/ 	"use strict";
+/******/ 
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function getDefault() { return module['default']; } :
+/******/ 				function getModuleExports() { return module; };
+/******/ 			__webpack_require__.d(getter, 'a', getter);
+/******/ 			return getter;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getter */
+/******/ 	!function() {
+/******/ 		// define getter function for harmony exports
+/******/ 		var hasOwnProperty = Object.prototype.hasOwnProperty;
+/******/ 		__webpack_require__.d = function(exports, name, getter) {
+/******/ 			if(!hasOwnProperty.call(exports, name)) {
+/******/ 				Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ }
+);
