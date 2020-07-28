@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM ubuntu:latest
+RUN sudo snap install --classic heroku
 COPY entrypoint.sh /entrypoint.sh
-RUN ls
 ENTRYPOINT ["/entrypoint.sh"]
