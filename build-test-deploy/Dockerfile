@@ -1,3 +1,4 @@
 FROM alpine:latest
-COPY entrypoint.sh /entrypoint.sh
+WORKDIR /
+COPY entrypoint.sh .
 ENTRYPOINT ["/entrypoint.sh"]
