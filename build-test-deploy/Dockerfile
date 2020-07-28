@@ -1,4 +1,4 @@
 FROM alpine:latest
-WORKDIR /
-COPY entrypoint.sh .
+COPY entrypoint.sh /entrypoint.sh
+RUN ls
 ENTRYPOINT ["/entrypoint.sh"]
