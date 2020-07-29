@@ -21,7 +21,7 @@ inputs:
     required: true
 runs:
   using: 'docker'
-  image: 'docker.pkg.github.com/stem-c/casmm/build:latest'
+  image: 'docker://docker.pkg.github.com/stem-c/casmm/build:latest'
   args:
     - ${{ inputs.image_name }}
     - ${{ inputs.image_tag }}
