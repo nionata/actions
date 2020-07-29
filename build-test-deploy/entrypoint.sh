@@ -4,7 +4,7 @@ set -e
 
 if [[ "$#" != 6 ]];
 then 
-    echo "Not all environment vars were set!"
+    echo "Expecting 6 arguments, got $#!"
     exit 0
 fi;
 
@@ -13,7 +13,7 @@ image_tag=$2
 app_name=$3
 app_type=$4
 github_token=$5
-heroku_token=$6
+HEROKU_API_KEY=$6
 
 gpr_image_name="docker.pkg.github.com/stem-c/casmm/$image_name"
 heroku_image_name="registry.heroku.com/$app_name/$app_type"
@@ -38,7 +38,8 @@ docker build -t "$gpr_image_name:$image_tag" -t "$gpr_image_name:latest" -t "$he
 docker push "$gpr_image_name"
 
 # Push heroku image
-docker login --username=_ --password="$heroku_token" registry.heroku.com
+# docker login --username=_ --password="$heroku_token" registry.heroku.com
+heroku container:login
 docker push "$heroku_image_name"
 
 # Deploy app
