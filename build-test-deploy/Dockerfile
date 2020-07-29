@@ -1,4 +1,4 @@
 FROM ubuntu:latest
-RUN snap install --classic heroku
+RUN curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
