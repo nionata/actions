@@ -13,7 +13,7 @@ image_tag=$2
 app_name=$3
 app_type=$4
 github_token=$5
-HEROKU_API_KEY=$6
+heroku_token=$6
 
 gpr_image_name="docker.pkg.github.com/stem-c/casmm/$image_name"
 heroku_image_name="registry.heroku.com/$app_name/$app_type"
@@ -38,7 +38,7 @@ docker build -t "$gpr_image_name:$image_tag" -t "$gpr_image_name:latest" -t "$he
 docker push "$gpr_image_name"
 
 # Push heroku image
-heroku container:login
+docker login --username=_ --password="$heroku_token" registry.heroku.com
 docker push "$heroku_image_name"
 
 # Deploy app
