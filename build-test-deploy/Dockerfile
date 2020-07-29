@@ -1,4 +1,5 @@
-FROM ubuntu:latest
-RUN curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+FROM node:alpine
+RUN apk add docker
+RUN yarn global add heroku
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
