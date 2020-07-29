@@ -2,9 +2,9 @@
 
 set -e
 
-if [[ "$#" != 6 ]];
+if [[ "$#" != 5 ]];
 then 
-    echo "Expecting 6 arguments, got $#!"
+    echo "Expecting 5 arguments, got $#!"
     exit 0
 fi;
 
@@ -13,7 +13,6 @@ image_tag=$2
 app_name=$3
 app_type=$4
 github_token=$5
-HEROKU_API_KEY=$6
 
 gpr_image_name="docker.pkg.github.com/stem-c/casmm/$image_name"
 heroku_image_name="registry.heroku.com/$app_name/$app_type"
