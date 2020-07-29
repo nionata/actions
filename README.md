@@ -6,9 +6,36 @@ GitHub actions that enable an automated CI/CD pipeline
 
 ## Actions
 
+### Build-Test-Deploy
+
+Build a docker image, run the testing harness, push to [GitHub Package Repository](https://github.com/STEM-C/CaSMM/packages) and [Heroku Container Registry](https://devcenter.heroku.com/articles/container-registry-and-runtime), and deploy the image to a target Heroku app
+
+``` yaml
+inputs:
+  image_name: 
+    description: 'Name of the github package repo image'
+    required: true
+  image_tag: 
+    description: 'Tag of the github package repo image'
+    required: true
+  app_name:
+    description: 'Target Heroku app name'
+    required: true
+  app_type:
+    description: 'Target Heroku app type'
+    required: true
+  github_token:
+    description: 'Token for github package repo'
+    required: true
+```
+
+In addition to defining all the inputs in the `with` section of the target workflow, you must set the `HEROKU_API_KEY` in the `env` section.
+
+> This action uses docker with an entrypoint script. The base image is in the directory as `Dockerfile.build`. It is currently being hosted on DockerHub because GitHub Package Repository does not allow for non-auth public pulls
+
 ### Review
 
-Create and delete apps on a heroku pipeline
+Create and delete Heroku apps in a target pipeline
 ``` yaml
 inputs:
   base:
@@ -62,7 +89,7 @@ Test all actions that have a `test.js`
 
 > Runs on all pushes to `master`
 
-Uses [ncc](https://www.npmjs.com/package/@zeit/ncc) to compile each action into its own `build/index.js` file
+Uses [ncc](https://www.npmjs.com/package/@zeit/ncc) to compile each javascript based action into its own `build/index.js` file
 
 ### Create an Action
 
