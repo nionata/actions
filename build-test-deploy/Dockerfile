@@ -1,3 +1,3 @@
-FROM docker.pkg.github.com/stem-c/casmm/build:latest
+FROM nionata/casmm-build
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
