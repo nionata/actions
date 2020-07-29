@@ -16,9 +16,6 @@ inputs:
   github_token:
     description: 'Token for github package repo'
     required: true
-  # heroku_token:
-  #   description: 'Token for Heroku container registry'
-  #   required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -28,4 +25,3 @@ runs:
     - ${{ inputs.app_name }}
     - ${{ inputs.app_type }}
     - ${{ inputs.github_token }}
-    # - ${{ inputs.heroku_token }}
