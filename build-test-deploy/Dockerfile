@@ -1,5 +1,3 @@
-FROM node:alpine
-RUN apk add docker
-RUN yarn global add heroku
+FROM docker.pkg.github.com/stem-c/casmm/build:latest
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
