@@ -5,7 +5,7 @@ import { request } from '@octokit/request'
 
 const pr = context.payload.pull_request;
 const client = getOctokit(getInput("repo_token"));
-//const slackToken = core.getInput("slack_token");
+const { owner, repo } = context.repo;
 
 run();
 
@@ -48,22 +48,14 @@ async function run() {
 }
 
 async function postTag(ver) {
-    console.log(`Creating annotated tag`);
+    console.log(`Creating release`);
 
-    const tagCreateResponse = await client.git.createTag({
-        ...context.repo,
-        tag: ver,
-        message: pr.body,
-        object: context.sha,
-        type: "commit",
-    });
-
-    console.log(`Pushing annotated tag to the repo`);
-
-    let response = await client.git.createRef({
-        ...context.repo,
-        ref: `refs/tags/${ver}`,
-        sha: tagCreateResponse.data.sha,
+    const tagCreateResponse = await client.repos.createRelease({
+        owner, 
+        repo,
+        tag_name: ver,
+        name: ver,
+        body: pr.body
     });
 
     console.log("Tag should be created, response was: \n\n", response);
