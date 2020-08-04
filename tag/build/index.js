@@ -6580,7 +6580,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const pr = _actions_github__WEBPACK_IMPORTED_MODULE_2__.context.payload.pull_request;
 const client = Object(_actions_github__WEBPACK_IMPORTED_MODULE_2__.getOctokit)(Object(_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("repo_token"));
-//const slackToken = core.getInput("slack_token");
+const { owner, repo } = _actions_github__WEBPACK_IMPORTED_MODULE_2__.context.repo;
 
 run();
 
@@ -6623,22 +6623,14 @@ async function run() {
 }
 
 async function postTag(ver) {
-    console.log(`Creating annotated tag`);
+    console.log(`Creating release`);
 
-    const tagCreateResponse = await client.git.createTag({
-        ..._actions_github__WEBPACK_IMPORTED_MODULE_2__.context.repo,
-        tag: ver,
-        message: pr.body,
-        object: _actions_github__WEBPACK_IMPORTED_MODULE_2__.context.sha,
-        type: "commit",
-    });
-
-    console.log(`Pushing annotated tag to the repo`);
-
-    let response = await client.git.createRef({
-        ..._actions_github__WEBPACK_IMPORTED_MODULE_2__.context.repo,
-        ref: `refs/tags/${ver}`,
-        sha: tagCreateResponse.data.sha,
+    const tagCreateResponse = await client.repos.createRelease({
+        owner, 
+        repo,
+        tag_name: ver,
+        name: ver,
+        body: pr.body
     });
 
     console.log("Tag should be created, response was: \n\n", response);
@@ -6676,6 +6668,7 @@ async function _exec(command) {
         };
     }
 }
+
 
 /***/ }),
 
