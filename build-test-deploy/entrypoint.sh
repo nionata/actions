@@ -19,15 +19,15 @@ heroku_base="registry.heroku.com/$app_name"
 echo "$github_token" | docker login docker.pkg.github.com -u "$GITHUB_ACTOR" --password-stdin
 
 # Name and build server image
-gpr_server = "$gpr_base/server"
-heroku_server = "$heroku_base/web"
+gpr_server="$gpr_base/server"
+heroku_server="$heroku_base/web"
 
 docker pull "$gpr_server" || true
 docker build -t "$gpr_server:$image_tag" -t "$gpr_server:latest" -t "$heroku_server" --cache-from "$gpr_server" .
 
 # Name and build compile image
-gpr_compile = "$gpr_base/compile"
-heroku_compile = "$heroku_base/compile"
+gpr_compile="$gpr_base/compile"
+heroku_compile="$heroku_base/compile"
 
 docker pull "$gpr_compile" || true
 docker build -t "$gpr_compile:$image_tag" -t "$gpr_compile:latest" -t "$heroku_compile" --cache-from "$gpr_compile" .
