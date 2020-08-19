@@ -55,5 +55,4 @@ docker push "$heroku_server"
 docker push "$heroku_compile"
 
 # Deploy app
-heroku container:release -a "$app_name" web
-heroku container:release -a "$app_name" compile
+heroku container:release -a "$app_name" web compile
