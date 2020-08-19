@@ -29,6 +29,16 @@ export const createApp = async (axios, pipeline, stage, name) => {
 	console.log(`provisioing db`)
 	await axios.post(`apps/${appId}/addons`, db)
 
+	// provision a redis instance
+	const redis = {
+		plan: 'heroku-redis',
+		attachment: {
+			name: 'REDIS'
+		}
+	}
+	console.log(`provisioing redis`)
+	await axios.post(`apps/${appId}/addons`, redis)
+
 	// get the database url from the config
 	const configResponse = await axios.get(`apps/${appId}/config-vars`)
 	const { DATABASE_URL } = configResponse.data
