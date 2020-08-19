@@ -30,7 +30,7 @@ gpr_compile="$gpr_base/compile"
 heroku_compile="$heroku_base/compile"
 
 docker pull "$gpr_compile" || true
-docker build -t "$gpr_compile:$image_tag" -t "$gpr_compile:latest" -t "$heroku_compile" --cache-from "$gpr_compile" .
+docker build -t "$gpr_compile:$image_tag" -t "$gpr_compile:latest" -t "$heroku_compile" --cache-from "$gpr_compile" -f ./compile/Dockerfile ./compile
 
 # Test
 # docker-compose up -d
