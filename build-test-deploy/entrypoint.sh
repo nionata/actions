@@ -2,25 +2,35 @@
 
 set -e
 
-if [[ "$#" != 5 ]];
+if [[ "$#" != 3 ]];
 then 
-    echo "Expecting 5 arguments, got $#!"
+    echo "Expecting 3 arguments, got $#!"
     exit 0
 fi;
 
-image_name=$1
-image_tag=$2
-app_name=$3
-app_type=$4
-github_token=$5
+image_tag=$1
+app_name=$2
+github_token=$3
 
-gpr_image_name="docker.pkg.github.com/stem-c/casmm/$image_name"
-heroku_image_name="registry.heroku.com/$app_name/$app_type"
+gpr_base="docker.pkg.github.com/stem-c/casmm"
+heroku_base="registry.heroku.com/$app_name"
 
-# Build and tag image 
+# Log into gpr
 echo "$github_token" | docker login docker.pkg.github.com -u "$GITHUB_ACTOR" --password-stdin
-docker pull "$gpr_image_name" || true
-docker build -t "$gpr_image_name:$image_tag" -t "$gpr_image_name:latest" -t "$heroku_image_name" --cache-from "$gpr_image_name" .
+
+# Name and build server image
+gpr_server="$gpr_base/server"
+heroku_server="$heroku_base/web"
+
+docker pull "$gpr_server" || true
+docker build -t "$gpr_server:$image_tag" -t "$gpr_server:latest" -t "$heroku_server" --cache-from "$gpr_server" .
+
+# Name and build compile image
+gpr_compile="$gpr_base/compile"
+heroku_compile="$heroku_base/compile"
+
+docker pull "$gpr_compile" || true
+docker build -t "$gpr_compile:$image_tag" -t "$gpr_compile:latest" -t "$heroku_compile" --cache-from "$gpr_compile" -f ./compile/Dockerfile ./compile
 
 # Test
 # docker-compose up -d
@@ -33,13 +43,16 @@ docker build -t "$gpr_image_name:$image_tag" -t "$gpr_image_name:latest" -t "$he
 # yarn integration
 # yarn performance
 
-# Push gpr image
-docker push "$gpr_image_name"
+# Push gpr images
+docker push "$gpr_server"
+docker push "$gpr_compile"
+
+# Login to heroku container registry
+heroku container:login
 
 # Push heroku image
-# docker login --username=_ --password="$heroku_token" registry.heroku.com
-heroku container:login
-docker push "$heroku_image_name"
+docker push "$heroku_server"
+docker push "$heroku_compile"
 
 # Deploy app
-heroku container:release -a "$app_name" web
+heroku container:release -a "$app_name" web compile

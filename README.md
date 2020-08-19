@@ -8,21 +8,15 @@ GitHub actions that enable an automated CI/CD pipeline
 
 ### Build-Test-Deploy
 
-Build a docker image, run the testing harness, push to [GitHub Package Repository](https://github.com/STEM-C/CaSMM/packages) and [Heroku Container Registry](https://devcenter.heroku.com/articles/container-registry-and-runtime), and deploy the image to a target Heroku app
+Build docker images, run the testing harness, push to [GitHub Package Repository](https://github.com/STEM-C/CaSMM/packages) and [Heroku Container Registry](https://devcenter.heroku.com/articles/container-registry-and-runtime), and deploy the image to a target Heroku app
 
 ``` yaml
 inputs:
-  image_name: 
-    description: 'Name of the github package repo image'
-    required: true
   image_tag: 
     description: 'Tag of the github package repo image'
     required: true
   app_name:
     description: 'Target Heroku app name'
-    required: true
-  app_type:
-    description: 'Target Heroku app type'
     required: true
   github_token:
     description: 'Token for github package repo'
