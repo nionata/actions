@@ -2,15 +2,15 @@
 GitHub actions for repo automation
 
 ![Build and Tag](https://github.com/stream-monkey/actions/workflows/Build%20and%20Tag/badge.svg) ![Test all actions](https://github.com/stream-monkey/actions/workflows/Test%20all%20actions/badge.svg)
+
 <br/>
 
-## Actions
 
-### Tag
+## Tag
 
 Automatically create a release and tag on merged pull requests
 
-#### Inputs
+### Inputs
 
 ``` yaml
 repo_token:
@@ -18,7 +18,7 @@ repo_token:
   description: 'The GITHUB_TOKEN secret'
 ```
 
-#### Use
+### Use
 
 ``` yaml
 # ./github/workflows/tag.yml
