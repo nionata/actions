@@ -21,6 +21,8 @@ repo_token:
 #### Use
 
 ``` yaml
+# ./github/workflows/tag.yml
+
 name: Tag
 on:
   pull_request:
