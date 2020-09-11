@@ -100,7 +100,7 @@ async function createRelease(ver) {
         body
     })
 
-    console.log('Release created', JSON.stringify(tagCreateResponse, none, 4))
+    console.log('Release created', JSON.stringify(tagCreateResponse, null, 4))
 }
 
 async function getLastTag() {
