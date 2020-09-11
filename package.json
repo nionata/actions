@@ -1,6 +1,6 @@
 {
-  "name": "auto",
-  "description": "Actions for CI/CD pipeline",
+  "name": "actions",
+  "description": "GitHub actions for repo automation",
   "author": "Nicholas Ionata",
   "license": "MIT",
   "dependencies": {
