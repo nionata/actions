@@ -1,6 +1,6 @@
 {
-  "name": "auto",
-  "description": "Actions for CI/CD pipeline",
+  "name": "actions",
+  "description": "GitHub actions for repo automation",
   "author": "Nicholas Ionata",
   "license": "MIT",
   "dependencies": {
@@ -17,7 +17,7 @@
     "jest": "^26.0.1"
   },
   "scripts": {
-    "test": "jest ./*/test.js",
+    "test": "jest ./*/test.js --passWithNoTests",
     "build": "./build.sh"
   },
   "type": "module"

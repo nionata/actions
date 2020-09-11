@@ -1,60 +1,14 @@
-# auto
-GitHub actions that enable an automated CI/CD pipeline
+# actions
+GitHub actions for repo automation
 
 ![Test](https://github.com/STEM-C/auto/workflows/Test%20all%20actions/badge.svg) ![Build](https://github.com/STEM-C/auto/workflows/Build%20all%20actions/badge.svg)
 <br/>
 
 ## Actions
 
-### Build-Test-Deploy
-
-Build docker images, run the testing harness, push to [GitHub Package Repository](https://github.com/STEM-C/CaSMM/packages) and [Heroku Container Registry](https://devcenter.heroku.com/articles/container-registry-and-runtime), and deploy the image to a target Heroku app
-
-``` yaml
-inputs:
-  image_tag: 
-    description: 'Tag of the github package repo image'
-    required: true
-  app_name:
-    description: 'Target Heroku app name'
-    required: true
-  github_token:
-    description: 'Token for github package repo'
-    required: true
-```
-
-In addition to defining all the inputs in the `with` section of the target workflow, you must set the `HEROKU_API_KEY` in the `env` section.
-
-> This action uses docker with an entrypoint script. The base image is in the directory as `Dockerfile.build`. It is currently being hosted on DockerHub because GitHub Package Repository does not allow for non-auth public pulls
-
-### Review
-
-Create and delete Heroku apps in a target pipeline
-``` yaml
-inputs:
-  base:
-    description: 'The base name of the app'
-    required: true
-  pipeline: 
-    description: 'A heroku pipline id to add the new app to'
-    required: true
-  stage:
-    description: 'A stage to add the app to'
-    required: false
-    default: 'development'
-  token:
-    description: 'API token of the heroku account'
-    required: true
-outputs:
-  app_name: 
-    description: 'The name of the app that is created'
-  database_url:
-    description: 'The postgresql url of the provisioned db'
-```
-
 ### Tag
 
-Automatically tags on pull requests into master
+Automatically create a release and tag for merged pull requests
 
 ``` yaml
 inputs:
@@ -116,7 +70,7 @@ runs:
 
 ``` yaml
 - name: Use your action
-  uses: STEM-C/auto/<your action name>@vX.X
+  uses: stream-monkey/actions/<your action name>@vX.X
 ```
 
 

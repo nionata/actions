@@ -1,7 +1,7 @@
 name: Test all actions
 on:
   pull_request:
-    branches: [ 'develop', 'master' ]
+    branches: [ master ]
 jobs:
   run-test-suites:
     runs-on: ubuntu-latest
@@ -12,6 +12,3 @@ jobs:
         run: yarn
       - name: run tests
         run: yarn test
-        env:
-          HEROKU_TOKEN: ${{ secrets.HEROKU_TOKEN }}
-          PIPELINE_ID: ${{ secrets.PIPELINE_ID }}
