@@ -60,13 +60,13 @@ All dependencies are managed in a central `package.json`. Each action will be bu
 
 #### `yarn test`
 
-> Runs on all PR to `develop` and `master`
+> Runs on all PR to `master`
 
 Test all actions that have a `test.js` 
 
 #### `yarn build`
 
-> Runs on all pushes to `master`
+> Runs on all PRs merged into `master`
 
 Uses [ncc](https://www.npmjs.com/package/@zeit/ncc) to compile each javascript based action into its own `build/index.js` file
 
