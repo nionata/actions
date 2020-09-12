@@ -79,7 +79,7 @@ Uses [ncc](https://www.npmjs.com/package/@zeit/ncc) to compile each javascript b
 3. Setup the action to run `build/index.js` and fill out the other relevant fields in `action.yml` 
 
 ``` yaml
-# auto/<your action name>/action.yml
+# actions/<your action name>/action.yml
 name: ''
 description: ''
 inputs:
