@@ -75,6 +75,9 @@ async function run() {
         // increment the minor version
         lastTag[3] = parseInt(lastTag[3], 10)+1
 
+        // remove patch version if it exists
+        while (lastTag.length > 4) lastTag.pop()    
+
         // get the specific version
         const version = lastTag.join('')
         console.log(`Minor - releasing ${version}`)
