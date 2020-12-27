@@ -35,7 +35,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Tag Master
-        uses: stream-monkey/actions/tag@vX.X
+        uses: nionata/actions/tag@vX.X
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
 ```
@@ -101,7 +101,7 @@ runs:
 
 ``` yaml
 - name: Use your action
-  uses: stream-monkey/actions/<your action name>@vX.X
+  uses: nionata/actions/<your action name>@vX.X
 ```
 
 
