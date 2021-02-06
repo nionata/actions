@@ -1,15 +1,14 @@
 #!/bin/bash
 
-set -e
+# Get the action name from package.json
+ACTION_NAME=`node -pe 'JSON.parse(process.argv[1]).name' "$(cat package.json)"`
+echo "----- Building $ACTION_NAME -----"
 
-for dir in `ls`;
-do
-    # make sure file is a javascript based action directory
-    if [ -d "$dir" ] && [ -f "$dir/action.yml" ] && [ -f "$dir/handler.js" ];
-    then
-        echo "----- building $dir -----"
-        cd "$dir"
-        ncc build handler.js -o build
-        cd ../
-    fi
-done
+# Ensure there are action and handler files
+if [ -f "action.yml" ] && [ -f "src/handler.js" ];
+then
+    ncc build src/handler.js -o src/build
+else
+    echo "Error: no action.yml or src/handler.js file(s)!"
+    exit 1
+fi
