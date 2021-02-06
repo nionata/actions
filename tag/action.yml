@@ -1,9 +1,0 @@
-name: 'Tag'
-description: 'Automatically create a release and tag for merged pull requests'
-inputs:
-  repo_token:
-    required: true
-    description: 'The GITHUB_TOKEN secret'
-runs:
-  using: 'node12'
-  main: 'build/index.js'

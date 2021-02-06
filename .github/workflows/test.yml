@@ -1,4 +1,5 @@
-name: Test all actions
+name: Test Action
+
 on:
   pull_request:
     branches: [ master ]
